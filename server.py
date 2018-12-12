@@ -27,9 +27,9 @@ class ParkingServer(Resource):
         """ Global variable """
         global timeA, timeB, timeC, prev_timeA, prev_timeB, prev_timeC,used_timeA, used_timeB, used_timeC, sttA, sttB, sttC
         """ Parse data from request """
-        timeA = int(js[0]['toggle_time'])
-        timeB = int(js[1]['toggle_time'])
-        timeC = int(js[2]['toggle_time'])
+        timeA = int(js[0])
+        timeB = int(js[1])
+        timeC = int(js[2])
         print( timeA, '-', timeB, '-', timeC)
         """ Handling time value"""
         if timeA != 0:
@@ -38,7 +38,7 @@ class ParkingServer(Resource):
                 prev_timeA = 0
                 sttA = 0
             else:
-                prev_timeA = 0
+                prev_timeA = timeA
                 sttA = 1
 
         if timeB != 0:
@@ -47,7 +47,7 @@ class ParkingServer(Resource):
                 prev_timeB = 0
                 sttB = 0
             else:
-                prev_timeB = 0
+                prev_timeB = timeB
                 sttB = 1
 
         if timeC != 0:
@@ -56,12 +56,11 @@ class ParkingServer(Resource):
                 prev_timeC = 0
                 sttC = 0
             else:
-                prev_timeC = 0
+                prev_timeC = timeC
                 sttC = 1
     
     def post(self):
         req = request.data
-        print(req)
         self.handle(req)
         return "Update success"
 
